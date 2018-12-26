@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.dao.StudentDao" >
+
+    <resultMap id="StudentResultMap" type="com.example.demo.model.Student">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="student_name" property="studentName" jdbcType="VARCHAR"/>
+        <result column="student_score" property="studentScore" jdbcType="REAL"/>
+    </resultMap>
+
+    <select id="getAll" resultMap="StudentResultMap">
+      SELECT * FROM student
+    </select>
+
+    <select id="findOne" resultMap="StudentResultMap" parameterType="java.lang.Integer">
+        SELECT * FROM student where id = #{id}
+    </select>
+
+    <insert id="save" parameterType="com.example.demo.model.Student">
+        insert into student (student_name,student_score) values (#{studentName},#{studentScore});
+    </insert>
+
+    <delete id="delete" parameterType="java.lang.Integer">
+        DELETE FROM student WHERE id = #{id}
+    </delete>
+
+    <update id="update" parameterType="com.example.demo.model.Student">
+        UPDATE student SET student_name =#{studentName},student_score=#{studentScore} WHERE id = #{id}
+    </update>
+</mapper>
